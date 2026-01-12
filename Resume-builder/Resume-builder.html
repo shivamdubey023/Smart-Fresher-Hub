@@ -2,356 +2,460 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Resume Builder | Smart Fresher Hub</title>
+  <title>One-Page Resume Builder | Smart Fresher Hub</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; line-height: 1.6; color: #333; background: #f8f9fa; }
+    
+    nav { background: linear-gradient(135deg, #2d3436 0%, #1e272e 100%); color: #fff; padding: 20px 40px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+    nav h1 { margin-bottom: 15px; font-size: 28px; font-weight: 600; }
+    nav ul { list-style: none; display: flex; justify-content: center; gap: 40px; }
+    nav a { color: #fff; text-decoration: none; font-size: 16px; transition: opacity 0.3s; }
+    nav a:hover { opacity: 0.8; }
+    nav a.active { font-weight: 600; }
+    
+    .main-container { 
+      display: grid; 
+      grid-template-columns: 1fr 1fr; 
+      gap: 30px; 
+      max-width: 1600px; 
+      margin: 40px auto; 
+      padding: 0 30px; 
+    }
+    
+    .form-section, .preview-section { 
+      background: #fff; 
+      padding: 35px; 
+      border-radius: 8px; 
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08); 
+    }
+    
+    .form-section h2, .preview-section h2 {
+      font-size: 24px;
+      margin-bottom: 8px;
+      color: #333;
+      font-weight: 600;
+    }
+    
+    .subtitle {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 25px;
+    }
+    
+    .section-group { 
+      margin-bottom: 30px; 
+      padding-bottom: 30px;
+      border-bottom: 1px solid #e8e8e8;
+    }
+    
+    .section-group:last-of-type {
+      border-bottom: none;
+    }
+    
+    .section-group h3 { 
+      margin-bottom: 18px; 
+      font-size: 16px; 
+      color: #333;
+      font-weight: 600;
+    }
+    
+    .form-group { 
+      margin-bottom: 16px; 
+    }
+    
+    .form-group label { 
+      display: block; 
+      margin-bottom: 6px; 
+      font-weight: 500; 
+      color: #333;
+      font-size: 14px;
+    }
+    
+    .form-group input, 
+    .form-group textarea { 
+      width: 100%; 
+      padding: 10px 12px; 
+      border: 1px solid #d0d0d0; 
+      border-radius: 4px; 
+      font-family: inherit;
+      font-size: 14px;
+      transition: border-color 0.3s;
+    }
+    
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #007BFF;
+      box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+    }
+    
+    .form-row { 
+      display: grid; 
+      grid-template-columns: 1fr 1fr; 
+      gap: 20px; 
+    }
+    
+    .block { 
+      margin-bottom: 20px; 
+      padding: 16px; 
+      background: #f8f9fa; 
+      border-left: 4px solid #007BFF;
+      border-radius: 4px;
+    }
+    
+    .add-btn { 
+      background: #4CAF50; 
+      color: white; 
+      padding: 10px 18px; 
+      border: none; 
+      border-radius: 4px; 
+      cursor: pointer; 
+      margin-top: 15px;
+      font-size: 14px;
+      font-weight: 500;
+      transition: background 0.3s;
+    }
+    
+    .add-btn:hover { 
+      background: #45a049; 
+    }
+    
+    .form-actions { 
+      display: flex; 
+      gap: 15px; 
+      margin-top: 30px; 
+    }
+    
+    .btn-primary, .btn-secondary { 
+      flex: 1; 
+      padding: 12px 20px; 
+      border: none; 
+      border-radius: 4px; 
+      cursor: pointer; 
+      font-size: 15px; 
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+    
+    .btn-primary { 
+      background: #007BFF; 
+      color: white; 
+    }
+    
+    .btn-primary:hover { 
+      background: #0056b3; 
+    }
+    
+    .btn-secondary { 
+      background: #6c757d; 
+      color: white; 
+    }
+    
+    .btn-secondary:hover { 
+      background: #5a6268; 
+    }
+    
+    .resume-preview { 
+      background: white; 
+      padding: 40px; 
+      border: 1px solid #e8e8e8;
+      min-height: 700px; 
+      color: #000;
+      border-radius: 4px;
+    }
+    
+    #resumeContent { 
+      color: #000; 
+    }
+    
+    footer { 
+      text-align: center; 
+      padding: 30px; 
+      background: linear-gradient(135deg, #2d3436 0%, #1e272e 100%); 
+      color: #fff; 
+      margin-top: 60px;
+      font-size: 14px;
+    }
+    
+    footer a { 
+      color: #fff; 
+      text-decoration: none;
+    }
+    
+    footer a:hover {
+      text-decoration: underline;
+    }
+    
+    @media print { 
+      nav, footer, .form-section, .add-btn, .btn-primary, .btn-secondary, .preview-section h2 { display: none; }
+      .main-container { display: block; max-width: 100%; }
+      .preview-section { box-shadow: none; padding: 0; }
+      .resume-preview { border: none; padding: 0; }
+    }
+    
+    @media (max-width: 1024px) {
+      .main-container { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
   <nav>
-    <h1>Smart Fresher Resume Builder</h1>
+    <h1>🚀 Smart Fresher Resume Builder</h1>
     <ul>
       <li><a href="https://smart-fresher-sa.great-site.net/?i=2">🏠 Home</a></li>
-      <li><a href="Resume-Builder.html" class="active">🧾 Resume Builder</a></li>
+      <li><a href="index.html" class="active">📄 Resume Builder</a></li>
       <li><a href="about.html">ℹ️ About</a></li>
     </ul>
   </nav>
 
-  <div class="container">
-    <section>
-      <h2>Build Your ATS-Friendly Resume</h2>
-      <p>
-        Enter your details below. All fields are optional. Add multiple entries for sections like education, experience, projects, certifications, achievements, hobbies, and languages. You can also add custom sections. Sections will only appear in your resume if filled.
-      </p>
+  <div class="main-container">
+    <!-- Form Section -->
+    <div class="form-section">
+      <h2>📝 Build Your One-Page Resume</h2>
+      <p class="subtitle">💡 All fields are optional. Sections appear only if you fill them.</p>
       <form id="resumeForm">
-        <div class="form-group">
-          <label for="fullName">Full Name</label>
-          <input type="text" id="fullName" name="fullName" placeholder="Your Name">
+        <!-- Personal Information -->
+        <div class="section-group">
+          <h3>👤 Personal Information</h3>
+          <div class="form-group">
+            <label for="fullName">Full Name *</label>
+            <input type="text" id="fullName" name="fullName" placeholder="John Doe" required>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email">Email Address *</label>
+              <input type="email" id="email" name="email" placeholder="john@example.com" required>
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input type="text" id="phone" name="phone[]" placeholder="+91-8299142475">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="address">City / Location</label>
+              <input type="text" id="address" name="address" placeholder="New Delhi, India">
+            </div>
+            <div class="form-group">
+              <label for="portfolio">Portfolio / LinkedIn</label>
+              <input type="url" id="portfolio" name="url[]" placeholder="https://linkedin.com/in/yourprofile">
+            </div>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="address">Address</label>
-          <input type="text" id="address" name="address" placeholder="Your Address">
+
+        <!-- Professional Summary -->
+        <div class="section-group">
+          <h3>🎯 Professional Summary</h3>
+          <div class="form-group">
+            <label for="objective">Career Objective</label>
+            <textarea id="objective" name="objective" rows="3" placeholder="Seeking an opportunity to leverage my skills in web development..."></textarea>
+          </div>
         </div>
-        <div class="form-group" id="phoneNumbers">
-          <label>Phone Numbers</label>
-          <input type="text" name="phone[]" placeholder="Phone Number">
+
+        <!-- Education -->
+        <div class="section-group">
+          <h3>🎓 Education</h3>
+          <div id="educationBlocks">
+            <div class="block">
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Degree</label>
+                  <input type="text" name="degree[]" placeholder="B.Tech in Information Technology">
+                </div>
+                <div class="form-group">
+                  <label>Institution</label>
+                  <input type="text" name="institution[]" placeholder="Delhi University">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Duration</label>
+                  <input type="text" name="duration[]" placeholder="2021-2025">
+                </div>
+                <div class="form-group">
+                  <label>CGPA / Percentage</label>
+                  <input type="text" name="cgpa[]" placeholder="8.5 / 10">
+                </div>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="add-btn" id="addEducationBtn">+ Add Education</button>
         </div>
-        <button type="button" id="addPhoneBtn" style="margin-bottom:1rem; background:#90e0ef; color:#0077b6;">+ Add Phone Number</button>
-        <div class="form-group">
-          <label for="email">Email Address</label>
-          <input type="email" id="email" name="email" placeholder="your@email.com">
+
+        <!-- Work Experience -->
+        <div class="section-group">
+          <h3>💼 Work Experience & Internships</h3>
+          <div id="experienceBlocks">
+            <div class="block">
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Job Title</label>
+                  <input type="text" name="jobTitle[]" placeholder="Software Developer Intern">
+                </div>
+                <div class="form-group">
+                  <label>Company</label>
+                  <input type="text" name="company[]" placeholder="Tech Company Name">
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Duration</label>
+                <input type="text" name="expDuration[]" placeholder="Jan 2024 – Mar 2024">
+              </div>
+              <div class="form-group">
+                <label>Responsibilities</label>
+                <textarea name="responsibilities[]" rows="2" placeholder="Built responsive UI, Fixed bugs, Collaborated with team"></textarea>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="add-btn" id="addExperienceBtn">+ Add Experience</button>
         </div>
-        <div class="form-group" id="urlBlocks">
-          <label>URLs (Portfolio, Blog, etc.)</label>
-          <input type="text" name="url[]" placeholder="URL (e.g., Portfolio, Blog)">
+
+        <!-- Skills -->
+        <div class="section-group">
+          <h3>🛠️ Skills</h3>
+          <div class="form-group">
+            <label>Technical Skills</label>
+            <textarea name="programmingLanguages" rows="2" placeholder="Python, JavaScript, React, Node.js, MySQL"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Soft Skills</label>
+            <textarea name="toolsFrameworks" rows="2" placeholder="Communication, Team Work, Problem Solving, Leadership"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Other Skills</label>
+            <textarea name="otherSkills" rows="2" placeholder="Any other skills you'd like to mention"></textarea>
+          </div>
         </div>
-        <button type="button" id="addUrlBtn" style="margin-bottom:1rem; background:#90e0ef; color:#0077b6;">+ Add URL</button>
-        <div class="form-group">
-          <label for="objective">Career Objective</label>
-          <textarea id="objective" name="objective" rows="2" placeholder="Brief career goal or what you’re seeking"></textarea>
+
+        <!-- Projects -->
+        <div class="section-group">
+          <h3>📁 Projects</h3>
+          <div id="projectBlocks">
+            <div class="block">
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Project Name</label>
+                  <input type="text" name="projectName[]" placeholder="E-Commerce Platform">
+                </div>
+                <div class="form-group">
+                  <label>Tech Stack</label>
+                  <input type="text" name="techUsed[]" placeholder="React, Node.js, MongoDB">
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Description</label>
+                <textarea name="projectDesc[]" rows="2" placeholder="Full-stack app, Payment gateway, Deployed on AWS"></textarea>
+              </div>
+              <div class="form-group">
+                <label>GitHub / Live Link</label>
+                <input type="url" name="projectLinks[]" placeholder="https://github.com/username/project">
+              </div>
+            </div>
+          </div>
+          <button type="button" class="add-btn" id="addProjectBtn">+ Add Project</button>
         </div>
-        <div class="form-group" id="educationBlocks">
-          <label>Education</label>
-          <input type="text" name="degree[]" placeholder="Degree (e.g., B.Tech in IT)">
-          <input type="text" name="institution[]" placeholder="Institution">
-          <input type="text" name="duration[]" placeholder="Duration (e.g., 2021-2025)">
-          <input type="text" name="cgpa[]" placeholder="CGPA/Percentage (optional)">
+
+        <!-- Certifications -->
+        <div class="section-group">
+          <h3>🏆 Certifications</h3>
+          <div id="certBlocks">
+            <div class="block">
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Certification Name</label>
+                  <input type="text" name="certName[]" placeholder="AWS Certified Solutions Architect">
+                </div>
+                <div class="form-group">
+                  <label>Issuing Authority</label>
+                  <input type="text" name="certAuthority[]" placeholder="Amazon Web Services">
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Year</label>
+                <input type="text" name="certYear[]" placeholder="2024">
+              </div>
+            </div>
+          </div>
+          <button type="button" class="add-btn" id="addCertBtn">+ Add Certification</button>
         </div>
-        <button type="button" id="addEducationBtn" style="margin-bottom:1rem; background:#90e0ef; color:#0077b6;">+ Add Education</button>
-        <div class="form-group" id="experienceBlocks">
-          <label>Work Experience / Internships</label>
-          <input type="text" name="jobTitle[]" placeholder="Job Title">
-          <input type="text" name="company[]" placeholder="Company Name">
-          <input type="text" name="expDuration[]" placeholder="Duration (e.g., Jan 2023 – May 2023)">
-          <textarea name="responsibilities[]" rows="2" placeholder="Responsibilities (comma separated)"></textarea>
+
+        <!-- Languages -->
+        <div class="section-group">
+          <h3>🗣️ Languages</h3>
+          <div id="languageBlocks">
+            <div class="block">
+              <div class="form-group">
+                <label>Language</label>
+                <input type="text" name="language[]" placeholder="English, Hindi, Spanish">
+              </div>
+            </div>
+          </div>
+          <button type="button" class="add-btn" id="addLanguageBtn">+ Add Language</button>
         </div>
-        <button type="button" id="addExperienceBtn" style="margin-bottom:1rem; background:#90e0ef; color:#0077b6;">+ Add Experience</button>
-        <div class="form-group" id="projectBlocks">
-          <label>Projects</label>
-          <input type="text" name="projectName[]" placeholder="Project Name">
-          <input type="text" name="techUsed[]" placeholder="Tech Used">
-          <textarea name="projectDesc[]" rows="2" placeholder="Description (bullets, comma separated)"></textarea>
-          <input type="text" name="projectLinks[]" placeholder="GitHub/Live Demo URL">
+
+        <!-- Additional Info -->
+        <div class="section-group">
+          <h3>⭐ Additional Info</h3>
+          <div id="achievementBlocks">
+            <div class="block">
+              <div class="form-group">
+                <label>Achievement</label>
+                <textarea name="achievement[]" rows="2" placeholder="Awards, recognitions, achievements"></textarea>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="add-btn" id="addAchievementBtn">+ Add Achievement</button>
+          
+          <div id="hobbyBlocks" style="margin-top: 20px;">
+            <div class="block">
+              <div class="form-group">
+                <label>Hobby</label>
+                <textarea name="hobby[]" rows="2" placeholder="Your hobbies and interests"></textarea>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="add-btn" id="addHobbyBtn">+ Add Hobby</button>
         </div>
-        <button type="button" id="addProjectBtn" style="margin-bottom:1rem; background:#90e0ef; color:#0077b6;">+ Add Project</button>
-        <div class="form-group" id="skillsBlocks">
-          <label>Skills</label>
-          <input type="text" name="programmingLanguages" placeholder="Technical Skill (e.g., Python, JavaScript)">
-          <input type="text" name="toolsFrameworks" placeholder="Soft Skill (e.g., Communication, Leadership)">
-          <input type="text" name="otherSkills" placeholder="Skills (e.g., Medical, Pharmacy, etc.)">
+
+        <!-- Custom Sections -->
+        <div class="section-group">
+          <h3>📌 Custom Sections</h3>
+          <p class="subtitle">Add any additional sections like Publications, Awards, etc.</p>
+          <div id="customSectionsContainer"></div>
+          <button type="button" class="add-btn" id="addCustomSectionBtn">+ Add Custom Section</button>
         </div>
-        <div class="form-group" id="certBlocks">
-          <label>Certifications</label>
-          <input type="text" name="certName[]" placeholder="Certification Name">
-          <input type="text" name="certAuthority[]" placeholder="Issuing Authority">
-          <input type="text" name="certYear[]" placeholder="Year">
+
+        <!-- Form Actions -->
+        <div class="form-actions">
+          <button type="submit" class="btn-primary">✨ Submit Resume</button>
+          <button type="button" id="printResume" class="btn-secondary">🖨️ Print Preview</button>
         </div>
-        <button type="button" id="addCertBtn" style="margin-bottom:1rem; background:#90e0ef; color:#0077b6;">+ Add Certification</button>
-        <div class="form-group" id="achieveBlocks">
-          <label>Achievements</label>
-          <input type="text" name="achievement[]" placeholder="Achievement">
-        </div>
-        <button type="button" id="addAchieveBtn" style="margin-bottom:1rem; background:#90e0ef; color:#0077b6;">+ Add Achievement</button>
-        <div class="form-group" id="hobbyBlocks">
-          <label>Hobbies</label>
-          <input type="text" name="hobby[]" placeholder="Hobby (e.g., Blogging)">
-        </div>
-        <button type="button" id="addHobbyBtn" style="margin-bottom:1rem; background:#90e0ef; color:#0077b6;">+ Add Hobby</button>
-        <div class="form-group" id="langBlocks">
-          <label>Languages</label>
-          <input type="text" name="language[]" placeholder="Language (e.g., English)">
-          <input type="text" name="proficiency[]" placeholder="Proficiency (e.g., Fluent)">
-        </div>
-        <button type="button" id="addLangBtn" style="margin-bottom:1rem; background:#90e0ef; color:#0077b6;">+ Add Language</button>
-        <div class="form-group" id="customSectionBlocks"></div>
-        <button type="button" id="addCustomSectionBtn" style="margin-bottom:1rem; background:#ffd166; color:#0077b6;">+ Add Custom Section</button>
-        <button type="submit">Generate Resume</button>
-        <button type="button" id="downloadBtn" style=" background:#00b4d8;">Download as PDF</button>
       </form>
-      <div id="resumeResult"></div>
-    </section>
+    </div>
+
+    <!-- Resume Preview Section -->
+    <div class="preview-section">
+      <h2>👀 Resume Preview</h2>
+      <div class="export-buttons" style="display: flex; gap: 10px; margin-bottom: 20px;">
+        <button type="button" id="exportHTML" class="btn-secondary" style="flex: 1;">📄 Export HTML</button>
+        <button type="button" id="exportPDF" class="btn-secondary" style="flex: 1;">📥 Export PDF</button>
+      </div>
+      <div id="resumePreview" class="resume-preview">
+        <div id="resumeContent" style="color: #000; font-family: Arial, sans-serif; padding: 20px; text-align: center; color: #999;">
+          <p>Fill out the form and your ATS-optimized resume will appear here</p>
+        </div>
+      </div>
+    </div>
   </div>
+
   <footer>
-    <p>Contact: <a href="mailto: smartfresherhubsa@gmail.com" style="color:#0077b6;">smartfresherhubsa@gmail.com</a> | Phone: +91-8299142475</p>
+    <p>Contact: <a href="mailto:smartfresherhubsa@gmail.com">smartfresherhubsa@gmail.com</a> | Phone: +91-8299142475</p>
     <p>© 2025 Smart Fresher Hub | Build your career with confidence.</p>
   </footer>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // REMOVE these lines, they cause errors and leak sensitive info
-      // console.log("SMTP Email:", SMTP_EMAIL);
-      // console.log("SMTP Password:", SMTP_PASS);
-      // console.log("To:", email);
 
-      // Add dynamic blocks for repeated sections
-      function addBlock(containerId, html) {
-        document.getElementById(containerId).insertAdjacentHTML('beforeend', html);
-      }
-      document.getElementById('addPhoneBtn').onclick = () => addBlock('phoneNumbers', `<input type="text" name="phone[]" placeholder="Additional Phone Number">`);
-      document.getElementById('addEducationBtn').onclick = () => addBlock('educationBlocks', `
-        <hr>
-        <input type="text" name="degree[]" placeholder="Degree (e.g., B.Tech in IT)">
-        <input type="text" name="institution[]" placeholder="Institution">
-        <input type="text" name="duration[]" placeholder="Duration (e.g., 2021-2025)">
-        <input type="text" name="cgpa[]" placeholder="CGPA/Percentage (optional)">
-      `);
-      document.getElementById('addExperienceBtn').onclick = () => addBlock('experienceBlocks', `
-        <hr>
-        <input type="text" name="jobTitle[]" placeholder="Job Title">
-        <input type="text" name="company[]" placeholder="Company Name">
-        <input type="text" name="expDuration[]" placeholder="Duration (e.g., Jan 2023 – May 2023)">
-        <textarea name="responsibilities[]" rows="2" placeholder="Responsibilities (comma separated)"></textarea>
-      `);
-      document.getElementById('addProjectBtn').onclick = () => addBlock('projectBlocks', `
-        <hr>
-        <input type="text" name="projectName[]" placeholder="Project Name">
-        <input type="text" name="techUsed[]" placeholder="Tech Used">
-        <textarea name="projectDesc[]" rows="2" placeholder="Description (bullets, comma separated)"></textarea>
-        <input type="text" name="projectLinks[]" placeholder="GitHub/Live Demo URL">
-      `);
-      document.getElementById('addCertBtn').onclick = () => addBlock('certBlocks', `
-        <hr>
-        <input type="text" name="certName[]" placeholder="Certification Name">
-        <input type="text" name="certAuthority[]" placeholder="Issuing Authority">
-        <input type="text" name="certYear[]" placeholder="Year">
-      `);
-      document.getElementById('addAchieveBtn').onclick = () => addBlock('achieveBlocks', `<input type="text" name="achievement[]" placeholder="Achievement">`);
-      document.getElementById('addHobbyBtn').onclick = () => addBlock('hobbyBlocks', `<input type="text" name="hobby[]" placeholder="Hobby (e.g., Blogging)">`);
-      document.getElementById('addLangBtn').onclick = () => addBlock('langBlocks', `
-        <hr>
-        <input type="text" name="language[]" placeholder="Language (e.g., English)">
-        <input type="text" name="proficiency[]" placeholder="Proficiency (e.g., Fluent)">
-      `);
-      document.getElementById('addUrlBtn').onclick = () => addBlock('urlBlocks', `<input type="text" name="url[]" placeholder="Additional URL (e.g., Portfolio, Blog)">`);
-      document.getElementById('addCustomSectionBtn').onclick = () => addBlock('customSectionBlocks', `
-        <hr>
-        <input type="text" name="customSectionTitle[]" placeholder="Section Title (e.g., Volunteering)">
-        <textarea name="customSectionContent[]" rows="2" placeholder="Section Content"></textarea>
-      `);
-
-      document.getElementById('resumeForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        // Collect form data
-        const formData = new FormData(this);
-        // Convert FormData to URLSearchParams for easier POST
-        const params = new URLSearchParams();
-        for (const pair of formData.entries()) {
-          params.append(pair[0], pair[1]);
-        }
-
-        // Send to Google Sheet via Apps Script
-        fetch('https://script.google.com/macros/s/AKfycbzjxTnCgGBOBp-4viqtzvCbunJ-fWL6jhVEuGip--ATbIfI9VJB83Htiy8_36YW_pkDSg/exec', {
-          method: 'POST',
-          body: params
-        })
-        .then(response => response.text())
-        .then(result => {
-          // No alert here
-          // Optionally, generate the resume here as before
-        })
-        .catch(error => {
-          alert('Error sending data to Google Sheet.');
-          console.error(error);
-        });
-
-        // Helper to get all values for repeated fields
-        const getVals = name => Array.from(document.getElementsByName(name)).map(i => i.value).filter(v => v);
-        const fullName = document.getElementById('fullName').value;
-        const address = document.getElementById('address').value;
-        const phones = getVals('phone[]');
-        const email = document.getElementById('email').value;
-        const urls = getVals('url[]');
-        const objective = document.getElementById('objective').value;
-        const degrees = getVals('degree[]');
-        const institutions = getVals('institution[]');
-        const durations = getVals('duration[]');
-        const cgpas = getVals('cgpa[]');
-        const jobTitles = getVals('jobTitle[]');
-        const companies = getVals('company[]');
-        const expDurations = getVals('expDuration[]');
-        const responsibilities = getVals('responsibilities[]');
-        const projectNames = getVals('projectName[]');
-        const techUsed = getVals('techUsed[]');
-        const projectDesc = getVals('projectDesc[]');
-        const projectLinks = getVals('projectLinks[]');
-        const programmingLanguages = document.getElementsByName('programmingLanguages')[0].value.split(',').map(s => s.trim()).filter(s => s);
-        const toolsFrameworks = document.getElementsByName('toolsFrameworks')[0].value.split(',').map(s => s.trim()).filter(s => s);
-        const otherSkills = document.getElementsByName('otherSkills')[0].value.split(',').map(s => s.trim()).filter(s => s);
-        const certNames = getVals('certName[]');
-        const certAuthorities = getVals('certAuthority[]');
-        const certYears = getVals('certYear[]');
-        const achievements = getVals('achievement[]');
-        const hobbies = getVals('hobby[]');
-        const languages = getVals('language[]');
-        const proficiencies = getVals('proficiency[]');
-        const customSectionTitles = getVals('customSectionTitle[]');
-        const customSectionContents = getVals('customSectionContent[]');
-
-        // Build resume HTML (sections only if filled)
-        let html = `<div id="resumeContent" style="background:#fff; border:1px solid #e3eafc; border-radius:10px; padding:1.5rem; max-width:800px; margin:auto; font-size:1rem;">`;
-        if (fullName) html += `<h2 style="color:#0077b6; margin-bottom:0.2rem;">${fullName}</h2>`;
-        if (address) html += `<div style="font-size:1rem; color:#222; margin-bottom:0.5rem;"><span>🏠 ${address}</span></div>`;
-        if (phones.length || email || urls.length) {
-          html += `<div style="font-size:1rem; color:#222;">`;
-          if (phones.length) html += phones.map(p => `<span>📞 ${p}</span>`).join(' | ');
-          if (email) html += ` | <span>✉️ ${email}</span>`;
-          if (urls.length) html += ' | ' + urls.map(u => `<span>${u}</span>`).join(' | ');
-          html += `</div>`;
-        }
-        html += `<hr style="margin:1rem 0; border:0; border-top:1px solid #e3eafc;">`;
-        if (objective) html += `<h4 style="color:#0077b6; margin-top:1rem;">Career Objective</h4><p>${objective}</p>`;
-        if (degrees.length) {
-          html += `<h4 style="color:#0077b6; margin-top:1rem;">Education</h4>`;
-          degrees.forEach((deg, i) => {
-            if (deg || institutions[i] || durations[i] || cgpas[i]) {
-              html += `<div style="margin-bottom:0.5rem;">
-                ${deg ? `<strong>${deg}</strong>` : ''} 
-                ${institutions[i] ? `| ${institutions[i]}` : ''} 
-                ${durations[i] ? `| ${durations[i]}` : ''}
-                ${cgpas[i] ? `<br>CGPA/Percentage: ${cgpas[i]}` : ''}
-              </div>`;
-            }
-          });
-        }
-        if (jobTitles.length) {
-          html += `<h4 style="color:#0077b6; margin-top:1rem;">Work Experience / Internships</h4>`;
-          jobTitles.forEach((jt, i) => {
-            if (jt || companies[i] || expDurations[i] || responsibilities[i]) {
-              html += `<div style="margin-bottom:0.5rem;">
-                ${jt ? `<strong>${jt}</strong>` : ''} 
-                ${companies[i] ? `| ${companies[i]}` : ''} 
-                ${expDurations[i] ? `| ${expDurations[i]}` : ''}
-                ${responsibilities[i] ? `<ul>${responsibilities[i].split(',').map(r => `<li>${r.trim()}</li>`).join('')}</ul>` : ''}
-              </div>`;
-            }
-          });
-        }
-        if (projectNames.length) {
-          html += `<h4 style="color:#0077b6; margin-top:1rem;">Projects</h4>`;
-          projectNames.forEach((pn, i) => {
-            if (pn || techUsed[i] || projectDesc[i] || projectLinks[i]) {
-              html += `<div style="margin-bottom:0.5rem;">
-                ${pn ? `<strong>${pn}</strong>` : ''} 
-                ${techUsed[i] ? `| <span>${techUsed[i]}</span>` : ''}
-                ${projectDesc[i] ? `<ul>${projectDesc[i].split(',').map(d => `<li>${d.trim()}</li>`).join('')}</ul>` : ''}
-                ${projectLinks[i] ? `<a href="${projectLinks[i]}" target="_blank">${projectLinks[i]}</a>` : ''}
-              </div>`;
-            }
-          });
-        }
-        if (programmingLanguages.length || toolsFrameworks.length || otherSkills.length) {
-          html += `<h4 style="color:#0077b6; margin-top:1rem;">Skills</h4><div>`;
-          if (programmingLanguages.length) html += `<strong>Technical Skills:</strong> ${programmingLanguages.join(', ')}<br>`;
-          if (toolsFrameworks.length) html += `<strong>Soft Skills:</strong> ${toolsFrameworks.join(', ')}<br>`;
-          if (otherSkills.length) html += `<strong>Skills:</strong> ${otherSkills.join(', ')}`;
-          html += `</div>`;
-        }
-        if (certNames.length) {
-          html += `<h4 style="color:#0077b6; margin-top:1rem;">Certifications</h4><ul>`;
-          certNames.forEach((cn, i) => {
-            if (cn || certAuthorities[i] || certYears[i]) {
-              html += `<li>${cn ? cn : ''}${certAuthorities[i] ? ` – ${certAuthorities[i]}` : ''}${certYears[i] ? ', ' + certYears[i] : ''}</li>`;
-            }
-          });
-          html += `</ul>`;
-        }
-        if (achievements.length) {
-          html += `<h4 style="color:#0077b6; margin-top:1rem;">Achievements</h4><ul>`;
-          achievements.forEach(a => { if (a) html += `<li>${a}</li>`; });
-          html += `</ul>`;
-        }
-        if (hobbies.length) {
-          html += `<h4 style="color:#0077b6; margin-top:1rem;">Hobbies</h4><ul>`;
-          hobbies.forEach(h => { if (h) html += `<li>${h}</li>`; });
-          html += `</ul>`;
-        }
-        if (languages.length) {
-          html += `<h4 style="color:#0077b6; margin-top:1rem;">Languages</h4><ul>`;
-          languages.forEach((l, i) => {
-            if (l || proficiencies[i]) html += `<li>${l ? l : ''}${proficiencies[i] ? ` – ${proficiencies[i]}` : ''}</li>`;
-          });
-          html += `</ul>`;
-        }
-        if (customSectionTitles.length) {
-          customSectionTitles.forEach((title, i) => {
-            if (title || customSectionContents[i]) {
-              html += `<h4 style="color:#0077b6; margin-top:1rem;">${title}</h4>`;
-              html += `<p>${customSectionContents[i] ? customSectionContents[i].replace(/\n/g, '<br>') : ''}</p>`;
-            }
-          });
-        }
-        html += `</div>`;
-        document.getElementById('resumeResult').innerHTML = html;
-        window.scrollTo({ top: document.getElementById('resumeResult').offsetTop, behavior: 'smooth' });
-      });
-
-      // Download as PDF (simple print dialog for ATS-friendly format)
-      document.getElementById('downloadBtn').addEventListener('click', function() {
-        const resumeContent = document.getElementById('resumeContent');
-        if (resumeContent) {
-          const printWindow = window.open('', '', 'width=800,height=900');
-          printWindow.document.write(`
-            <html>
-              <head>
-                <title>Resume - Download</title>
-                <style>
-                  body { font-family: 'Poppins', Arial, sans-serif; background: #fff; color: #222; }
-                  h2, h3, h4 { color: #0077b6; }
-                  ul { columns:2; padding-left:1.5rem; }
-                  hr { margin:1rem 0; border:0; border-top:1px solid #e3eafc; }
-                  div { page-break-inside: avoid; }
-                </style>
-              </head>
-              <body>${resumeContent.outerHTML}</body>
-            </html>
-          `);
-          printWindow.document.close();
-          printWindow.focus();
-          printWindow.print();
-        } else {
-          alert('Please generate your resume first.');
-        }
-      });
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
